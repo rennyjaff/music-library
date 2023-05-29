@@ -38,24 +38,24 @@ describe("Read Artists", () => {
       });
     });
   });
-});
 
-describe("GET /artists/{id}", () => {
-  xit("returns the artist with the correct id", async () => {
-    const { status, body } = await request(app)
-      .get(`/artists/${artists[0].id}`)
-      .send();
+  describe("GET /artists/{id}", () => {
+    it("returns the artist with the correct id", async () => {
+      const { status, body } = await request(app)
+        .get(`/artists/${artists[0].id}`)
+        .send();
 
-    expect(status).to.equal(200);
-    expect(body).to.deep.equal(artists[0]);
-  });
+      expect(status).to.equal(200);
+      expect(body).to.deep.equal(artists[0]);
+    });
 
-  xit("returns a 404 if the artist does not exist", async () => {
-    const { status, body } = await request(app)
-      .get("/artists/999999999")
-      .send();
+    it("returns a 404 if the artist does not exist", async () => {
+      const { status, body } = await request(app)
+        .get("/artists/999999999")
+        .send();
 
-    expect(status).to.equal(404);
-    expect(body.message).to.equal("artist 999999999 does not exist");
+      expect(status).to.equal(404);
+      expect(body.message).to.equal("artist 999999999 does not exist");
+    });
   });
 });
