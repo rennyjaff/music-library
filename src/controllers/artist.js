@@ -70,7 +70,23 @@ exports.updateArtist = async (req, res) => {
 
     res.status(200).json(artist);
   } catch (err) {
-    console.log(err);
+    res.status(500).json(err.message);
+  }
+};
+
+exports.deleteArtist = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const {
+      rows: [artist],
+    } = await db.query(`DELETE FROM Artists WHERE id = $1 RETURNING *`, [id]);
+
+    if (artist) {
+      res.status(200).json(artist);
+    } else {
+      res.status(404).json({ message: `artist ${id} does not exist` });
+    }
+  } catch (err) {
     res.status(500).json(err.message);
   }
 };
